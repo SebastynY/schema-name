@@ -15,71 +15,9 @@
       <xs:element name="customer" type="CustomerType"/>
       <xs:element name="items" type="ItemsType"/>
       <xs:element name="notes" type="xs:string" minOccurs="0"/>
-    </xs:sequence>
-    <xs:attribute name="id" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:pattern value="ORD-\d{6}"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="date" type="xs:date" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="CustomerType">
-    <xs:sequence>
-      <xs:element name="name">
-        <xs:simpleType>
-          <xs:restriction base="xs:string">
-            <xs:minLength value="1"/>
-            <xs:maxLength value="100"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="email" type="EmailType"/>
+       <xs:element name="item" type="ItemType" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
-
-  <xs:complexType name="ItemsType">
-    <xs:sequence>
-      <xs:element name="item" type="ItemType" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="ItemType">
-    <xs:sequence>
-      <xs:element name="sku" type="SkuType"/>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="qty">
-        <xs:simpleType>
-          <xs:restriction base="xs:positiveInteger">
-            <xs:minInclusive value="1"/>
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:element>
-      <xs:element name="price" type="PriceType"/>
-    </xs:sequence>
-    <xs:attribute name="currency" type="CurrencyCodeType" use="required"/>
-  </xs:complexType>
-
-  <!-- Простые типы -->
-  <xs:simpleType name="EmailType">
-    <xs:restriction base="xs:string">
-      <!-- упрощённый паттерн для email -->
-      <xs:pattern value="[^@\s]+@[^@\s]+\.[^@\s]+"/>
-      <xs:maxLength value="254"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="SkuType">
-    <xs:restriction base="xs:string">
-      <xs:pattern value="[A-Z0-9-]{3,20}"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="PriceType">
-    <xs:restriction base="xs:decimal">
-      <xs:minInclusive value="0.01"/>
       <xs:totalDigits value="10"/>
       <xs:fractionDigits value="2"/>
     </xs:restriction>
